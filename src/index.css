@@ -30,14 +30,54 @@ body {
   gap: 20px;
 }
 
-/* Radio Buttons */
+/* Componente RadioButtons */
 .radio-container {
-  width: 100%;
-  background-color: #f9fafb;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 30vw;
   text-align: center;
+  margin-bottom: 20px;
+}
+.radio-label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.radio-input {
+  margin-right: 10px;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f60e0e;
+  border-radius: 50%;
+  background-color: #fff;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.radio-input:checked {
+  background-color: #f60e0e;
+  border-color: #f60e0e;
+}
+.radio-input:checked::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.radio-label:hover .radio-input {
+  border-color: #f60e0e;
+}
+.radio-label:hover {
+  color: #f60e0e;
 }
 
 /* Textarea */
