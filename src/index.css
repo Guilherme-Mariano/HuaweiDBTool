@@ -1,0 +1,195 @@
+/* Reset Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f2f5f7;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+  color: #333;
+}
+
+/* Container Principal do App */
+.app-container {
+  width: 50vw;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Radio Buttons */
+.radio-container {
+  width: 100%;
+  background-color: #f9fafb;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+/* Textarea */
+.textarea-container {
+  width: 100%;
+}
+
+.textarea-label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
+  color: #555;
+}
+
+.textarea-input {
+  width: 100%;
+  height: 120px;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9fafb;
+  resize: vertical;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.textarea-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+/* OptionText */
+.option-texts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.option-text-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.OptionText-container {
+  width: 100%;
+  padding: 15px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.OptionText-label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.OptionText-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  resize: vertical;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.OptionText-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+/* Plus Button */
+.plus-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.plus-button {
+  width: 50px;
+  height: 50px;
+  font-size: 28px;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s, transform 0.2s;
+  margin: 1vw;
+}
+
+.plus-button:hover {
+  background-color: #218838;
+}
+
+.plus-button:active {
+  transform: scale(0.95);
+}
+
+/* Minus Button */
+.minus-button {
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  color: #fff;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.minus-button:hover {
+  background-color: #c82333;
+}
+
+.minus-button:active {
+  transform: scale(0.95);
+}
+
+/* Collect Data Button */
+.collect-data-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s, transform 0.2s;
+  text-transform: uppercase;
+}
+
+.collect-data-button:hover {
+  background-color: #0069d9;
+}
+
+.collect-data-button:active {
+  background-color: #0056b3;
+  transform: scale(0.98);
+}

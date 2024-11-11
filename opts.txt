@@ -1,0 +1,3 @@
+Verdadeiro Ou Falso
+Resposta Única
+Multipla Escolha
