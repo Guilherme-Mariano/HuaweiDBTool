@@ -11,6 +11,9 @@ const App = () => {
   const [textAreaValue, setTextAreaValue] = useState('');
   const [flag, setFlag] = useState(false);
   const [optionTexts, setOptionTexts] = useState([]);
+  const [checkboxes, setCheckboxes] = useState({}); // Para armazenar o estado dos checkboxes
+  const [checkedOptions, setCheckedOptions] = useState([]); // Para armazenar as opções selecionadas
+  const [verdadeiroOuFalso, setVerdadeiroOuFalso] = useState(''); // Novo estado para armazenar a seleção de verdadeiro ou falso
 
   const handleRadioChange = (event) => {
     const value = event.target.value;
@@ -37,14 +40,37 @@ const App = () => {
 
   const handleMinusButtonClick = (id) => {
     setOptionTexts(optionTexts.filter(option => option.id !== id));
+    const newCheckboxes = { ...checkboxes };
+    delete newCheckboxes[id];
+    setCheckboxes(newCheckboxes);
+  };
+
+  const handleCheckboxChange = (id) => {
+    const newCheckboxes = { ...checkboxes, [id]: !checkboxes[id] };
+    setCheckboxes(newCheckboxes);
+
+    // Atualizar a lista de opções selecionadas (checkedOptions)
+    const newCheckedOptions = optionTexts
+      .filter(option => newCheckboxes[option.id]) // Filtra as opções marcadas
+      .map(option => option.text); // Retorna os textos dessas opções
+
+    setCheckedOptions(newCheckedOptions);
+  };
+
+  const handleVerdadeiroOuFalsoChange = (event) => {
+    setVerdadeiroOuFalso(event.target.value);
+    // Atualizar checkedOptions com "Verdadeiro" ou "Falso" dependendo da seleção
+    setCheckedOptions([event.target.value]);
   };
 
   const collectData = () => {
     const data = {
-      enunciado: textAreaValue, // Enunciado da questão]
+      enunciado: textAreaValue, // Enunciado da questão
       type: selectedOption,
-      options: optionTexts.map(option => option.text) // Opções de resposta
+      options: optionTexts.map(option => option.text), // Todas as opções
+      checkedOptions, // Incluir as opções que estão marcadas (armazenadas em checkedOptions)
     };
+
     console.log("Dados coletados:", JSON.stringify(data, null, 2));
     return data;
   };
@@ -54,7 +80,7 @@ const App = () => {
 
     try {
       // Enviar dados para a rota POST do servidor
-      const response = await fetch('http://localhost:3000/pergunta', {
+      const response = await fetch('http://localhost:3030/pergunta', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,17 +114,49 @@ const App = () => {
         onChange={handleTextAreaChange}
       />
 
-      <div className="option-texts-container">
-        {optionTexts.map(option => (
-          <div key={option.id} className="option-text-wrapper">
-            <OptionText 
-              value={option.text} 
-              onChange={(e) => handleOptionTextChange(option.id, e.target.value)} 
+      {/* Exibir os radio buttons de Verdadeiro ou Falso se o tipo for "Verdadeiro Ou Falso" */}
+      {selectedOption === 'Verdadeiro Ou Falso' && (
+        <div>
+          <label style={{ marginRight: '20px' }}>
+            <input
+              type="radio"
+              value="Verdadeiro"
+              checked={verdadeiroOuFalso === 'Verdadeiro'}
+              onChange={handleVerdadeiroOuFalsoChange}
             />
-            <MinusButton onClick={() => handleMinusButtonClick(option.id)} />
-          </div>
-        ))}
-      </div>
+            Verdadeiro
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="Falso"
+              checked={verdadeiroOuFalso === 'Falso'}
+              onChange={handleVerdadeiroOuFalsoChange}
+            />
+            Falso
+          </label>
+        </div>
+      )}
+
+      {/* Se "Verdadeiro Ou Falso" não estiver selecionado, exibe as opções criadas pelo usuário */}
+      {selectedOption !== 'Verdadeiro Ou Falso' && (
+        <div className="option-texts-container">
+          {optionTexts.map(option => (
+            <div key={option.id} className="option-text-wrapper">
+              <OptionText 
+                value={option.text} 
+                onChange={(e) => handleOptionTextChange(option.id, e.target.value)} 
+              />
+              <input
+                type="checkbox"
+                checked={checkboxes[option.id] || false}
+                onChange={() => handleCheckboxChange(option.id)}
+              />
+              <MinusButton onClick={() => handleMinusButtonClick(option.id)} />
+            </div>
+          ))}
+        </div>
+      )}
 
       {flag && (
         <div className="plus-button-container">
