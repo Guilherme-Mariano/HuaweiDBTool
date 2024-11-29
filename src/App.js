@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from 'react';
 import RadioButtons from './RadioButtons';
 import Textarea from './Textarea';
@@ -42,12 +41,39 @@ const App = () => {
 
   const collectData = () => {
     const data = {
-      selectedOption,
-      textAreaValue,
-      optionTexts: optionTexts.map(option => option.text)
+      enunciado: textAreaValue, // Enunciado da questão]
+      type: selectedOption,
+      options: optionTexts.map(option => option.text) // Opções de resposta
     };
     console.log("Dados coletados:", JSON.stringify(data, null, 2));
     return data;
+  };
+
+  const handleSubmit = async () => {
+    const data = collectData();
+
+    try {
+      // Enviar dados para a rota POST do servidor
+      const response = await fetch('http://localhost:3000/pergunta', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data), // Corpo da requisição com os dados coletados
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('Questão enviada com sucesso!');
+        console.log(result);
+      } else {
+        alert('Erro ao enviar questão!');
+        console.error(result);
+      }
+    } catch (error) {
+      console.error('Erro de rede ou servidor:', error);
+      alert('Ocorreu um erro ao enviar a questão');
+    }
   };
 
   return (
@@ -62,10 +88,6 @@ const App = () => {
         onChange={handleTextAreaChange}
       />
 
-      {
-        //flag && <OptionText />
-      } 
-      
       <div className="option-texts-container">
         {optionTexts.map(option => (
           <div key={option.id} className="option-text-wrapper">
@@ -85,10 +107,9 @@ const App = () => {
         </div>
       )}
 
-<button className="collect-data-button" onClick={collectData}>
-  Enviar questão
-</button>
-
+      <button className="collect-data-button" onClick={handleSubmit}>
+        Enviar questão
+      </button>
     </div>
   );
 };
